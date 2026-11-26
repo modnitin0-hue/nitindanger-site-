@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+<!-- PRELOAD INTRO ASSETS -->
+<link rel="preload" as="image" href="Cc.png" fetchpriority="high">
+<link rel="preload" as="image" href="nitin.png">
+<link rel="preload" as="image" href="1v1.png">
+<link rel="preload" as="image" href="openworld.png">
+<link rel="preload" as="image" href="scary.png">
+<title>Game Area</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+html,body{
+
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+
+}
+
+body{
+
+position:relative;
+
+background:
+radial-gradient(circle at top,
+#5b1fa5 0%,
+#2d1250 35%,
+#14071f 70%,
+#000 100%);
+
+}
+
+/* SKY */
+
+.sky{
+
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+overflow:hidden;
+
+}
+
+/* STARS */
+
+#stars{
+
+position:absolute;
+width:100%;
+height:100%;
+
+}
+
+.star{
+
+position:absolute;
+background:#fff;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+
+}
+
+@keyframes twinkle{
+
+from{
+
+opacity:.25;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+/* CLOUD */
+
+.cloud{
+
+position:absolute;
+
+width:260%;
+height:240px;
+
+background:
+
+radial-gradient(circle,
+rgba(255,255,255,.22),
+rgba(255,255,255,.06),
+transparent 72%);
+
+filter:blur(70px);
+
+animation:cloudMove linear infinite;
+
+}
+
+.cloud:nth-child(1){
+
+top:5%;
+left:-180%;
+animation-duration:60s;
+
+}
+
+.cloud:nth-child(2){
+
+top:30%;
+left:-170%;
+animation-duration:75s;
+
+opacity:.7;
+
+}
+
+.cloud:nth-child(3){
+
+top:55%;
+left:-200%;
+animation-duration:65s;
+
+opacity:.45;
+
+}
+
+@keyframes cloudMove{
+
+100%{
+
+transform:translateX(260%);
+
+}
+
+}
+
+/* FOG */
+
+.fog{
+
+position:absolute;
+
+left:-40%;
+bottom:-5%;
+
+width:180%;
+height:260px;
+
+background:
+
+radial-gradient(circle,
+rgba(255,255,255,.15),
+transparent 70%);
+
+filter:blur(90px);
+
+animation:fogMove 14s infinite ease-in-out;
+
+}
+
+@keyframes fogMove{
+
+0%{
+
+transform:translateX(-8%);
+
+}
+
+50%{
+
+transform:translateX(10%);
+
+}
+
+100%{
+
+transform:translateX(-8%);
+
+}
+
+}
+
+/* TORNADO */
+
+.tornado{
+
+position:absolute;
+
+left:50%;
+bottom:-250px;
+
+width:700px;
+height:700px;
+
+transform:
+translateX(-50%);
+
+border-radius:50%;
+
+background:
+
+conic-gradient(
+
+transparent,
+rgba(255,255,255,.03),
+transparent,
+rgba(255,255,255,.07),
+transparent);
+
+filter:blur(2px);
+
+animation:
+
+spin 8s linear infinite;
+
+opacity:.45;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:
+translateX(-50%)
+rotate(360deg);
+
+}
+
+}
+
+/* PARTICLES */
+
+.particle{
+
+position:absolute;
+
+width:4px;
+height:4px;
+
+background:#fff;
+
+border-radius:50%;
+
+opacity:.8;
+
+animation:
+particleFloat linear infinite;
+
+}
+
+@keyframes particleFloat{
+
+0%{
+
+transform:
+translateY(0);
+
+opacity:0;
+
+}
+
+20%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+translateY(-120vh);
+
+opacity:0;
+
+}
+
+}
+/* LOGO */
+
+.logo{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:240px;
+
+transform:
+translate(-50%,-50%)
+scale(.15);
+
+opacity:0;
+
+filter:
+
+drop-shadow(0 0 20px #fff)
+drop-shadow(0 0 45px #fff)
+drop-shadow(0 0 90px rgba(255,255,255,.8));
+
+animation:
+
+logoIntro 2.8s forwards;
+
+z-index:50;
+
+}
+
+@keyframes logoIntro{
+
+0%{
+
+opacity:0;
+
+transform:
+translate(-50%,-50%)
+scale(.15)
+rotate(-10deg);
+
+}
+
+45%{
+
+opacity:1;
+
+transform:
+translate(-50%,-50%)
+scale(1.12)
+rotate(3deg);
+
+}
+
+70%{
+
+transform:
+translate(-50%,-50%)
+scale(.96);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+}
+
+/* LIGHTNING */
+
+.lightning{
+
+position:absolute;
+
+left:0;
+top:0;
+
+width:100%;
+height:100%;
+
+pointer-events:none;
+
+z-index:30;
+
+}
+
+svg{
+
+width:100%;
+height:100%;
+
+}
+
+.bolt{
+
+fill:none;
+
+stroke:#fff;
+
+stroke-width:3;
+
+stroke-linecap:round;
+
+stroke-linejoin:round;
+
+filter:
+
+drop-shadow(0 0 8px #fff)
+drop-shadow(0 0 18px #fff)
+drop-shadow(0 0 50px #fff);
+
+stroke-dasharray:900;
+
+stroke-dashoffset:900;
+
+opacity:0;
+
+animation:strike 7s infinite;
+
+}
+
+.bolt:nth-child(2){
+
+animation-delay:3.3s;
+
+}
+
+@keyframes strike{
+
+0%,90%{
+
+opacity:0;
+
+stroke-dashoffset:900;
+
+}
+
+91%{
+
+opacity:1;
+
+}
+
+94%{
+
+stroke-dashoffset:0;
+
+}
+
+97%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:0;
+
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="sky">
+
+<div class="cloud"></div>
+<div class="cloud"></div>
+<div class="cloud"></div>
+
+<div class="fog"></div>
+
+<div class="tornado"></div>
+
+<div id="stars"></div>
+
+</div>
+
+<div class="lightning">
+
+<svg viewBox="0 0 1000 1000">
+
+<path class="bolt"
+d="M710 0
+L650 170
+L715 210
+L595 430
+L660 490
+L550 710
+L610 770
+L520 1000"/>
+
+<path class="bolt"
+d="M270 0
+L340 170
+L280 230
+L390 420
+L320 490
+L430 760
+L370 820
+L450 1000"/>
+
+</svg>
+
+</div>
+
+<img src="cc.png" class="logo">
+
+<audio id="bgm" loop>
+
+<source src="music.mp3"
+type="audio/mpeg">
+
+</audio>
+
+<script>
+
+const stars=
+document.getElementById("stars");
+
+for(let i=0;i<220;i++){
+
+let star=
+document.createElement("div");
+
+star.className="star";
+
+let size=
+Math.random()*2.5+1;
+
+star.style.width=size+"px";
+
+star.style.height=size+"px";
+
+star.style.left=
+Math.random()*100+"%";
+
+star.style.top=
+Math.random()*100+"%";
+
+star.style.animationDuration=
+(1+Math.random()*4)+"s";
+
+stars.appendChild(star);
+
+}
+
+for(let i=0;i<120;i++){
+
+let p=
+document.createElement("div");
+
+p.className="particle";
+
+p.style.left=
+Math.random()*100+"%";
+
+p.style.bottom="-20px";
+
+p.style.animationDuration=
+(5+Math.random()*10)+"s";
+
+p.style.animationDelay=
+Math.random()*6+"s";
+
+document.body.appendChild(p);
+
+}
+document.addEventListener("DOMContentLoaded",()=>{
+    const bgm=document.getElementById("bgm");
+    if(bgm) bgm.pause();
+});
+/* =========================================
+   OLD INTRO TIMER REPLACED
+   NEW CINEMATIC INTRO CONTROLS MENU
+========================================= */
+
+// Purana 4.2 second timer band.
+// Naya cinematic intro khud menu show karega.
+window.ND_OLD_INTRO_TIMER_DISABLED = true;
+/* PLAY BUTTON */
+
+const playBtn=document.getElementById("playBtn");
+
+if(playBtn){
+
+playBtn.onclick=function(){
+
+document.getElementById("mainMenu").style.display="none";
+
+document.getElementById("launcherPage").style.display="block";
+
+};
+
+}
+/* ---------- CREATE INTRO ---------- */
+
+const intro=document.createElement("div");
+
+intro.id="intro";
+
+intro.style.position="fixed";
+intro.style.left="0";
+intro.style.top="0";
+intro.style.width="100%";
+intro.style.height="100%";
+intro.style.display="flex";
+intro.style.alignItems="center";
+intro.style.justifyContent="center";
+intro.style.background="transparent";
+intro.style.zIndex="100";
+
+document.body.appendChild(intro);
+
+const introLogo=document.createElement("img");
+
+introLogo.src="cc.png";
+
+introLogo.style.width="260px";
+introLogo.style.maxWidth="70%";
+
+intro.appendChild(introLogo);
+
+/* ---------- CREATE MAIN MENU ---------- */
+
+const mainMenu=document.createElement("div");
+
+mainMenu.id="mainMenu";
+
+mainMenu.style.position="fixed";
+mainMenu.style.left="0";
+mainMenu.style.top="0";
+mainMenu.style.width="100%";
+mainMenu.style.height="100%";
+mainMenu.style.display="none";
+mainMenu.style.flexDirection="column";
+mainMenu.style.justifyContent="center";
+mainMenu.style.alignItems="center";
+mainMenu.style.zIndex="90";
+
+document.body.appendChild(mainMenu);
+
+/* BACK BUTTON */
+
+const backBtn=document.getElementById("backBtn");
+
+if(backBtn){
+
+backBtn.onclick=function(){
+
+document.getElementById("launcherPage").style.display="none";
+
+document.getElementById("mainMenu").style.display="flex";
+
+};
+
+}
+/* =========================================
+   OLD THUNDER EFFECTS DISABLED
+   NEW CINEMATIC LIGHTNING USED
+========================================= */
+
+// Old random flashes and electric particles disabled.
+window.ND_OLD_THUNDER_DISABLED = true;
+/* ---------- PLAY BUTTON ---------- */
+
+const play=document.createElement("button");
+
+play.id="playBtn";
+
+play.innerText="PLAY GAMES";
+
+play.style.width="280px";
+play.style.height="70px";
+play.style.margin="15px";
+play.style.fontSize="24px";
+play.style.fontWeight="bold";
+play.style.color="#fff";
+play.style.background=
+"linear-gradient(90deg,#7b2cff,#4f00ff)";
+play.style.border="2px solid #ffffff";
+play.style.borderRadius="18px";
+play.style.boxShadow=
+"0 0 25px #7b2cff";
+
+mainMenu.appendChild(play);
+
+/* ---------- SETTINGS ---------- */
+
+const settings=document.createElement("button");
+
+settings.innerText="SETTINGS";
+
+settings.style.width="280px";
+settings.style.height="70px";
+settings.style.margin="15px";
+settings.style.fontSize="24px";
+settings.style.fontWeight="bold";
+settings.style.color="#fff";
+settings.style.background=
+"linear-gradient(90deg,#444,#111)";
+settings.style.border="2px solid #fff";
+settings.style.borderRadius="18px";
+
+mainMenu.appendChild(settings);
+
+/* ---------- LAUNCHER PAGE ---------- */
+
+const launcher=document.createElement("div");
+
+launcher.id="launcherPage";
+
+launcher.style.position="fixed";
+launcher.style.left="0";
+launcher.style.top="0";
+launcher.style.width="100%";
+launcher.style.height="100%";
+launcher.style.display="none";
+launcher.style.background=
+"url('nitin.png') center/cover";
+launcher.style.zIndex="120";
+
+document.body.appendChild(launcher);
+
+/* ---------- TITLE ---------- */
+
+const title=document.createElement("h1");
+
+title.innerText="GAME LAUNCHER";
+
+title.style.color="#fff";
+title.style.textAlign="center";
+title.style.marginTop="35px";
+title.style.fontSize="42px";
+
+launcher.appendChild(title);
+/* ---------- GAME GRID ---------- */
+
+const grid=document.createElement("div");
+
+grid.style.display="grid";
+grid.style.gridTemplateColumns="repeat(2,1fr)";
+grid.style.gap="18px";
+grid.style.padding="30px";
+
+launcher.appendChild(grid);
+
+/* ---------- GAME 1 ---------- */
+
+function createGame(img,name,link){
+
+const card=document.createElement("div");
+
+card.style.background="rgba(0,0,0,.45)";
+card.style.border="2px solid rgba(255,255,255,.25)";
+card.style.borderRadius="18px";
+card.style.backdropFilter="blur(8px)";
+card.style.padding="12px";
+card.style.cursor="pointer";
+card.style.transition=".25s";
+
+card.onclick=()=>{
+
+location.href=link;
+
+};
+
+const image=document.createElement("img");
+
+image.src=img;
+
+image.style.width="100%";
+image.style.borderRadius="12px";
+
+card.appendChild(image);
+
+const text=document.createElement("div");
+
+text.innerText=name;
+
+text.style.color="#fff";
+text.style.textAlign="center";
+text.style.fontSize="20px";
+text.style.fontWeight="bold";
+text.style.paddingTop="10px";
+
+card.appendChild(text);
+
+card.onmouseenter=()=>{
+
+card.style.transform="scale(1.05)";
+
+};
+
+card.onmouseleave=()=>{
+
+card.style.transform="scale(1)";
+
+};
+
+grid.appendChild(card);
+
+}
+
+createGame(
+"1v1.png",
+"DUO BATTLE",
+"duobattle.html"
+);
+
+createGame(
+"openworld.png",
+"OPEN CITY",
+"opencity3D_FIXED_JUMP_DOG.html"
+);
+
+createGame(
+"scary.png",
+"THE BUTCHER",
+"Thebutcher.html"
+);
+
+createGame(
+"MoD.png",
+"3D OLD ADVANCE GAME",
+"3D_Games_Hub_FIXED.html"
+);
+/* ---------- FINAL INTRO FLOW ---------- */
+document.querySelector(".sky").remove();
+
+document.querySelector(".lightning").remove();
+
+if(document.querySelector(".tornado"))
+document.querySelector(".tornado").remove();
+
+document.body.style.background =
+"#000";
+play.onclick=function(){
+
+mainMenu.style.display="none";
+
+launcher.style.display="block";
+
+launcher.animate([
+
+{
+
+opacity:0,
+transform:"scale(1.04)"
+
+},
+
+{
+
+opacity:1,
+transform:"scale(1)"
+
+}
+
+],{
+
+duration:600,
+fill:"forwards"
+
+});
+
+};
+
+settings.onclick=function(){
+
+    // ==================================================
+    // 🎮 GAME SETTINGS PANEL
+    // ==================================================
+
+    const oldPanel =
+        document.getElementById("gameSettingsPanel");
+
+    if(oldPanel){
+        oldPanel.remove();
+    }
+
+    const panel =
+        document.createElement("div");
+
+    panel.id =
+        "gameSettingsPanel";
+
+    panel.style.position =
+        "fixed";
+
+    panel.style.left =
+        "50%";
+
+    panel.style.top =
+        "50%";
+
+    panel.style.transform =
+        "translate(-50%,-50%)";
+
+    panel.style.width =
+        "min(92vw,520px)";
+
+    panel.style.maxHeight =
+        "88vh";
+
+    panel.style.overflowY =
+        "auto";
+
+    panel.style.padding =
+        "25px";
+
+    panel.style.borderRadius =
+        "24px";
+
+    panel.style.background =
+        "linear-gradient(145deg,#171020,#050509)";
+
+    panel.style.border =
+        "2px solid rgba(255,255,255,.35)";
+
+    panel.style.boxShadow =
+        "0 0 35px rgba(130,40,255,.65)";
+
+    panel.style.color =
+        "#fff";
+
+    panel.style.zIndex =
+        "9999";
+
+    panel.style.fontFamily =
+        "Arial,sans-serif";
+
+    // ==================================================
+    // 🎮 TITLE
+    // ==================================================
+
+    const title =
+        document.createElement("div");
+
+    title.innerHTML =
+        "🎮 <b>GAME SETTINGS</b>";
+
+    title.style.textAlign =
+        "center";
+
+    title.style.fontSize =
+        "28px";
+
+    title.style.marginBottom =
+        "20px";
+
+    panel.appendChild(title);
+
+    // ==================================================
+    // 🎯 DUO BATTLE SECTION
+    // ==================================================
+
+    const duoTitle =
+        document.createElement("div");
+
+    duoTitle.innerHTML =
+        "🥊 DUO BATTLE — CONTROLS";
+
+    duoTitle.style.fontSize =
+        "21px";
+
+    duoTitle.style.fontWeight =
+        "bold";
+
+    duoTitle.style.marginBottom =
+        "15px";
+
+    panel.appendChild(duoTitle);
+
+    // ==================================================
+    // 🕹️ JOYSTICK SIZE
+    // ==================================================
+
+    function addRange(
+        icon,
+        name,
+        key,
+        min,
+        max,
+        value
+    ){
+
+        const box =
+            document.createElement("div");
+
+        box.style.margin =
+            "15px 0";
+
+        const label =
+            document.createElement("div");
+
+        label.innerHTML =
+            icon +
+            " " +
+            name +
+            ": <b id='" +
+            key +
+            "Value'>" +
+            value +
+            "</b>";
+
+        label.style.fontSize =
+            "17px";
+
+        label.style.marginBottom =
+            "7px";
+
+        box.appendChild(label);
+
+        const range =
+            document.createElement("input");
+
+        range.type =
+            "range";
+
+        range.min =
+            min;
+
+        range.max =
+            max;
+
+        range.value =
+            value;
+
+        range.style.width =
+            "100%";
+
+        range.dataset.setting =
+            key;
+
+        range.oninput =
+            function(){
+
+                document.getElementById(
+                    key+"Value"
+                ).innerText =
+                    this.value;
+
+            };
+
+        box.appendChild(range);
+
+        panel.appendChild(box);
+
+        return range;
+    }
+
+    const joystickSize =
+        addRange(
+            "🕹️",
+            "Joystick Size",
+            "duoJoystickSize",
+            70,
+            180,
+            localStorage.getItem(
+                "DuoBattle_JoystickSize"
+            ) || 110
+        );
+
+    const joystickSensitivity =
+        addRange(
+            "⚡",
+            "Joystick Sensitivity",
+            "duoJoystickSensitivity",
+            50,
+            200,
+            localStorage.getItem(
+                "DuoBattle_JoystickSensitivity"
+            ) || 100
+        );
+
+    const cameraSensitivity =
+        addRange(
+            "🎥",
+            "Camera Sensitivity",
+            "duoCameraSensitivity",
+            50,
+            200,
+            localStorage.getItem(
+                "DuoBattle_CameraSensitivity"
+            ) || 100
+        );
+
+    const buttonSize =
+        addRange(
+            "🔘",
+            "Button Size",
+            "duoButtonSize",
+            70,
+            160,
+            localStorage.getItem(
+                "DuoBattle_ButtonSize"
+            ) || 100
+        );
+
+    // ==================================================
+    // 💾 SAVE
+    // ==================================================
+
+    const save =
+        document.createElement("button");
+
+    save.innerHTML =
+        "💾 SAVE CONTROLS";
+
+    save.style.width =
+        "100%";
+
+    save.style.height =
+        "58px";
+
+    save.style.marginTop =
+        "15px";
+
+    save.style.border =
+        "2px solid #fff";
+
+    save.style.borderRadius =
+        "16px";
+
+    save.style.background =
+        "linear-gradient(90deg,#7b2cff,#4f00ff)";
+
+    save.style.color =
+        "#fff";
+
+    save.style.fontSize =
+        "18px";
+
+    save.style.fontWeight =
+        "bold";
+
+    save.onclick =
+        function(){
+
+            localStorage.setItem(
+                "DuoBattle_JoystickSize",
+                joystickSize.value
+            );
+
+            localStorage.setItem(
+                "DuoBattle_JoystickSensitivity",
+                joystickSensitivity.value
+            );
+
+            localStorage.setItem(
+                "DuoBattle_CameraSensitivity",
+                cameraSensitivity.value
+            );
+
+            localStorage.setItem(
+                "DuoBattle_ButtonSize",
+                buttonSize.value
+            );
+
+            save.innerHTML =
+                "✅ CONTROLS SAVED";
+
+            setTimeout(
+                function(){
+                    save.innerHTML =
+                        "💾 SAVE CONTROLS";
+                },
+                1400
+            );
+        };
+
+    panel.appendChild(save);
+
+    // ==================================================
+    // 🔄 RESET
+    // ==================================================
+
+    const reset =
+        document.createElement("button");
+
+    reset.innerHTML =
+        "🔄 RESET DUO BATTLE CONTROLS";
+
+    reset.style.width =
+        "100%";
+
+    reset.style.height =
+        "55px";
+
+    reset.style.marginTop =
+        "12px";
+
+    reset.style.border =
+        "2px solid rgba(255,255,255,.35)";
+
+    reset.style.borderRadius =
+        "16px";
+
+    reset.style.background =
+        "#171717";
+
+    reset.style.color =
+        "#fff";
+
+    reset.style.fontSize =
+        "16px";
+
+    reset.onclick =
+        function(){
+
+            localStorage.removeItem(
+                "DuoBattle_JoystickSize"
+            );
+
+            localStorage.removeItem(
+                "DuoBattle_JoystickSensitivity"
+            );
+
+            localStorage.removeItem(
+                "DuoBattle_CameraSensitivity"
+            );
+
+            localStorage.removeItem(
+                "DuoBattle_ButtonSize"
+            );
+
+            location.reload();
+        };
+
+    panel.appendChild(reset);
+
+    // ==================================================
+    // ❌ CLOSE
+    // ==================================================
+
+    const close =
+        document.createElement("button");
+
+    close.innerHTML =
+        "✕ CLOSE";
+
+    close.style.width =
+        "100%";
+
+    close.style.height =
+        "52px";
+
+    close.style.marginTop =
+        "12px";
+
+    close.style.border =
+        "0";
+
+    close.style.borderRadius =
+        "15px";
+
+    close.style.background =
+        "#333";
+
+    close.style.color =
+        "#fff";
+
+    close.style.fontSize =
+        "17px";
+
+    close.onclick =
+        function(){
+
+            panel.remove();
+
+        };
+
+    panel.appendChild(close);
+
+    document.body.appendChild(panel);
+};
+
+/* ---------- BACK BUTTON ---------- */
+
+const back=document.createElement("button");
+
+back.id="backBtn";
+
+back.innerText="◀ BACK";
+
+back.style.position="absolute";
+back.style.left="20px";
+back.style.top="20px";
+
+back.style.width="150px";
+back.style.height="55px";
+
+back.style.fontSize="20px";
+
+back.style.background="rgba(0,0,0,.55)";
+
+back.style.color="#fff";
+
+back.style.border="2px solid #fff";
+
+back.style.borderRadius="14px";
+
+launcher.appendChild(back);
+
+back.onclick=function(){
+
+launcher.style.display="none";
+
+mainMenu.style.display="flex";
+
+};
+
+/* ==========================================
+   NITIN DANGER — CINEMATIC 3D INTRO V9 FINAL
+   Dark Cloud Close + Web Gaming Background
+========================================== */
+
+(function NDCinematicStorm3D(){
+
+    const intro = document.getElementById("intro");
+    const mainMenu = document.getElementById("mainMenu");
+    if(!intro || !mainMenu) return;
+
+    intro.innerHTML = "";
+    mainMenu.style.display = "none";
+    // ===== PLAY KE PEECHE - KHUD SE BANE MINI GAMES + NAYI VIDEO =====
+    mainMenu.style.cssText = `
+        position:fixed;inset:0;display:none;flex-direction:column;
+        justify-content:center;align-items:center;z-index:90;
+        background:#000;overflow:hidden;
+    `;
+
+    // === CSS MINI GAMES - Khud Se Bane, Koi Emoji Nahi! ===
+    const cssLoop = document.createElement("div");
+    cssLoop.style.cssText = `position:absolute;inset:0;z-index:-2;overflow:hidden;background:#05010f;`;
+    const isDark = Math.random() < 0.5;
+
+    if(isDark){
+        // --- DARK LOOP - Thunderstorm Jungle ---
+        cssLoop.innerHTML = `
+            <style>
+                @keyframes ndRain { 0%{transform:translateY(-100px)} 100%{transform:translateY(110vh)} }
+                @keyframes ndFlash { 0%,92%,96%,100%{opacity:0} 93%,95%{opacity:.85} }
+                .nd-rain{position:absolute;top:-100px;width:1px;height:90px;background:linear-gradient(transparent,#a5f3fc);animation:ndRain .6s linear infinite;}
+                .nd-flash{position:absolute;inset:0;background:#dbeafe;animation:ndFlash 4s infinite;opacity:0;}
+                .nd-jungle{position:absolute;bottom:0;left:0;width:100%;height:45%;background:#020617;clip-path:polygon(0 100%,0 60%,10% 45%,18% 65%,28% 40%,38% 62%,48% 35%,58% 60%,68% 42%,78% 65%,88% 45%,100% 60%,100% 100%);}
+            </style>
+            <div style="position:absolute;top:-40px;left:-20%;width:140%;height:220px;background:radial-gradient(ellipse,#1e293b,transparent 60%);filter:blur(25px)"></div>
+            <div class="nd-flash"></div><div class="nd-jungle"></div>
+        `;
+        for(let i=0;i<60;i++){
+            const d=document.createElement("div"); d.className="nd-rain";
+            d.style.left=Math.random()*100+"%"; d.style.animationDelay=(Math.random()*1)+"s";
+            cssLoop.appendChild(d);
+        }
+    } else {
+        // --- GAMING LOOP - KHUD SE BANE 6 MINI GAMES! ---
+        cssLoop.innerHTML = `
+            <style>
+                @keyframes ndMoveUp { 0%{transform:translateY(0)} 100%{transform:translateY(-50%)} }
+                @keyframes ndCar { 0%{left:15%} 50%{left:65%} 100%{left:15%} }
+                @keyframes ndSnake { 0%{transform:translate(0,0)} 25%{transform:translate(20px,0)} 50%{transform:translate(20px,20px)} 75%{transform:translate(0,20px)} 100%{transform:translate(0,0)} }
+                @keyframes ndShoot { 0%{top:60px;opacity:1} 100%{top:5px;opacity:0} }
+                @keyframes ndBall { 0%{transform:translate(0,0)} 50%{transform:translate(25px,-30px)} 100%{transform:translate(0,0)} }
+                @keyframes ndPac { 0%{transform:rotate(0deg)} 50%{transform:rotate(-25deg)} 100%{transform:rotate(0deg)} }
+                .nd-grid{position:absolute;inset:-10% 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px;animation:ndMoveUp 18s linear infinite;}
+                .nd-card{border-radius:14px;border:1px solid rgba(255,255,255,.25);position:relative;overflow:hidden;min-height:130px;}
+                .nd-title{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:10px;font-weight:900;color:#fff;letter-spacing:1px;text-shadow:0 1px 3px #000;z-index:2;}
+            </style>
+            <div class="nd-grid">
+                <!-- 1. SNAKE GAME - Khud Se Banaya -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#052e16,#14532d)">
+                    <div style="position:absolute;width:12px;height:12px;background:#4ade80;border-radius:3px;top:30px;left:20px;animation:ndSnake 2s infinite"></div>
+                    <div style="position:absolute;width:12px;height:12px;background:#22c55e;border-radius:3px;top:30px;left:35px"></div>
+                    <div style="position:absolute;width:12px;height:12px;background:#22c55e;border-radius:3px;top:30px;left:50px"></div>
+                    <div style="position:absolute;width:10px;height:10px;background:#facc15;border-radius:50%;top:60px;left:70px"></div>
+                    <div class="nd-title">SNAKE</div>
+                </div>
+                <!-- 2. CAR RACE GAME -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">
+                    <div style="position:absolute;top:10px;bottom:25px;left:50%;width:3px;background:repeating-linear-gradient(#fff 0 10px, transparent 10px 20px);transform:translateX(-50%)"></div>
+                    <div style="position:absolute;top:60px;width:26px;height:44px;background:#ef4444;border-radius:6px;animation:ndCar 2.5s ease-in-out infinite;box-shadow:0 0 0 3px #111, 0 0 12px #ef4444">
+                        <div style="position:absolute;top:8px;left:3px;right:3px;height:12px;background:#93c5fd;border-radius:3px"></div>
+                    </div>
+                    <div class="nd-title">CAR RACE</div>
+                </div>
+                <!-- 3. SPACE SHOOTER GAME -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#020617,#0f172a)">
+                    <div style="position:absolute;width:3px;height:3px;background:#fff;top:15px;left:20px"></div>
+                    <div style="position:absolute;width:3px;height:3px;background:#fff;top:30px;left:70px"></div>
+                    <div style="position:absolute;width:3px;height:3px;background:#fff;top:10px;left:85px"></div>
+                    <div style="position:absolute;width:4px;height:12px;background:#facc15;left:50%;top:60px;animation:ndShoot 1s linear infinite"></div>
+                    <div style="position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:22px solid #38bdf8"></div>
+                    <div class="nd-title">SPACE SHOOT</div>
+                </div>
+                <!-- 4. BRICK BREAKER GAME -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#3b0764,#7e22ce)">
+                    <div style="position:absolute;top:15px;left:10px;right:10px;display:flex;gap:4px"><div style="flex:1;height:10px;background:#f472b6;border-radius:2px"></div><div style="flex:1;height:10px;background:#fb923c;border-radius:2px"></div><div style="flex:1;height:10px;background:#a3e635;border-radius:2px"></div></div>
+                    <div style="position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:50px;left:40px;animation:ndBall 1.2s ease-in-out infinite"></div>
+                    <div style="position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:50px;height:8px;background:#fff;border-radius:4px"></div>
+                    <div class="nd-title">BRICK GAME</div>
+                </div>
+                <!-- 5. PAC GAME - Gola Muh Wala -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#111827,#1f2937)">
+                    <div style="position:absolute;top:35px;left:25px;width:45px;height:45px;background:#facc15;border-radius:50%;clip-path:polygon(50% 50%, 100% 20%, 100% 80%);animation:ndPac .5s infinite alternate"></div>
+                    <div style="position:absolute;width:7px;height:7px;background:#fff;border-radius:50%;top:45px;left:60px"></div>
+                    <div style="position:absolute;width:7px;height:7px;background:#fff;border-radius:50%;top:45px;left:75px"></div>
+                    <div class="nd-title">PAC RUN</div>
+                </div>
+                <!-- 6. TETRIS GAME -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#082f49,#0c4a6e)">
+                    <div style="position:absolute;top:20px;left:25px;display:grid;grid-template-columns:repeat(3,14px);gap:2px">
+                        <div style="width:14px;height:14px;background:#22d3ee"></div><div style="width:14px;height:14px;background:#22d3ee"></div><div style="width:14px;height:14px;background:#22d3ee"></div>
+                        <div style="width:14px;height:14px;background:transparent"></div><div style="width:14px;height:14px;background:#facc15"></div><div style="width:14px;height:14px;background:transparent"></div>
+                    </div>
+                    <div style="position:absolute;top:70px;left:45px;display:flex;gap:2px"><div style="width:14px;height:14px;background:#f472b6"></div><div style="width:14px;height:14px;background:#f472b6"></div></div>
+                    <div class="nd-title">BLOCK PUZZLE</div>
+                </div>
+                <!-- Duplicate for loop - Taaki neeche se upar chalta rahe -->
+                <div class="nd-card" style="background:linear-gradient(135deg,#052e16,#14532d)"><div class="nd-title">SNAKE</div></div>
+                <div class="nd-card" style="background:linear-gradient(135deg,#1e1b4b,#312e81)"><div class="nd-title">CAR RACE</div></div>
+                <div class="nd-card" style="background:linear-gradient(135deg,#020617,#0f172a)"><div class="nd-title">SPACE SHOOT</div></div>
+            </div>
+        `;
+    }
+    mainMenu.appendChild(cssLoop);
+
+    // === NAYI VIDEO - Wo Purani Wali Nahi, Ye Bilkul Nayi Hai! ===
+    const menuVideo = document.createElement("video");
+    menuVideo.autoplay = true; menuVideo.muted = true; menuVideo.loop = true; menuVideo.playsInline = true;
+    menuVideo.style.cssText = `position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.55;`;
+    // NAYI VIDEO - Pexels wali, Pixabay wali nahi!
+    menuVideo.src = isDark
+        ? "https://videos.pexels.com/video-files/2882113/2882113-hd_1920_1080_24fps.mp4" // Nayi Dark Rain Video
+        : "https://videos.pexels.com/video-files/3163534/3163534-hd_1920_1080_30fps.mp4"; // Nayi Neon Gaming Video
+    menuVideo.onerror = function(){ this.remove(); }; // Na chale toh CSS wala hi dikhega!
+    mainMenu.appendChild(menuVideo);
+
+    const menuShade = document.createElement("div");
+    menuShade.style.cssText = `position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.75));z-index:-1;`;
+    mainMenu.appendChild(menuShade);
+
+    let finished=false;
+    let renderer=null;
+    let animationId=0;
+    let audioCtx=null;
+    let soundStarted=false;
+
+    /* BACKGROUND */
+    const bg=document.createElement("div");
+    bg.style.cssText=`
+        position:absolute;inset:-10%;
+        background:radial-gradient(ellipse at 50% 45%,#43216b 0%,#160b2b 45%,#03020a 100%);
+        transform:scale(1.1);
+    `;
+    intro.appendChild(bg);
+
+    /* POSTER */
+    const posterPreview=document.createElement("img");
+    posterPreview.src="cc.png";
+    posterPreview.alt="Nitin Danger";
+    posterPreview.style.cssText=`
+        position:absolute;width:min(88vw,58vh);height:min(88vh,150vw);
+        object-fit:contain;left:50%;top:50%;
+        transform:translate(-50%,-50%) scale(.55);
+        filter:drop-shadow(0 0 30px #793dff);z-index:2;opacity:1;
+    `;
+    intro.appendChild(posterPreview);
+
+    /* CANVAS */
+    const canvas=document.createElement("canvas");
+    canvas.style.cssText=`position:absolute;inset:0;width:100%;height:100%;z-index:3;`;
+    intro.appendChild(canvas);
+
+    /* LIGHTNING */
+    const flash=document.createElement("div");
+    flash.style.cssText=`position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:#c7d9ff;mix-blend-mode:screen;`;
+    intro.appendChild(flash);
+
+    const fxStyle=document.createElement("style");
+    fxStyle.textContent=`
+        @keyframes ndCinematicFlash { 0%,100%{opacity:0} 8%{opacity:.8} 16%{opacity:.08} 24%{opacity:.55} 35%{opacity:0} }
+        @keyframes ndCloudDrift { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+    `;
+    document.head.appendChild(fxStyle);
+
+    function lightningFlash(){
+        flash.style.animation="none"; void flash.offsetWidth;
+        flash.style.animation="ndCinematicFlash .55s ease-out";
+    }
+
+    /* THUNDER - Wahi Purana */
+    function startThunderSound(){
+        if(soundStarted) return; soundStarted=true;
+        try{
+            const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+            audioCtx=new AC(); if(audioCtx.state==="suspended") audioCtx.resume();
+            function thunder(){
+                if(finished||!audioCtx) return;
+                const duration=1.8, sr=audioCtx.sampleRate;
+                const buf=audioCtx.createBuffer(1,sr*duration,sr); const d=buf.getChannelData(0);
+                for(let i=0;i<d.length;i++){ const f=1-i/d.length; d[i]=(Math.random()*2-1)*f*f; }
+                const src=audioCtx.createBufferSource(); src.buffer=buf;
+                const filter=audioCtx.createBiquadFilter(); filter.type="lowpass"; filter.frequency.value=180;
+                const gain=audioCtx.createGain(); gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(.48,audioCtx.currentTime+.12);
+                gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);
+                src.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+                src.start(); src.stop(audioCtx.currentTime+duration);
+            }
+            thunder(); window.ndThunderTimer=setInterval(thunder,2600);
+        }catch(e){}
+    }
+    function unlockSound(){ startThunderSound(); document.removeEventListener("pointerdown",unlockSound); document.removeEventListener("keydown",unlockSound); }
+    document.addEventListener("pointerdown",unlockSound,{once:true});
+    document.addEventListener("keydown",unlockSound,{once:true});
+    /* ===== DARK BAADAL V4 - Dhuan Wala, Asli Jaisa! ===== */
+    function darkCloudClose(){
+        if(finished) return; finished=true;
+        cancelAnimationFrame(animationId);
+        clearInterval(window.ndThunderTimer);
+        if(audioCtx) audioCtx.close().catch(()=>{});
+        if(renderer) renderer.dispose();
+
+        // SVG Filter - Isse baadal ka kinara phata-phata lagega, PNG jaisa nahi!
+        const svgFilter = document.createElement("div");
+        svgFilter.innerHTML = `
+            <svg width="0" height="0" style="position:absolute">
+                <filter id="ndCloudFilter">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="4" seed="7" result="noise"/>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="90"/>
+                    <feGaussianBlur stdDeviation="8"/>
+                </filter>
+            </svg>
+        `;
+        intro.appendChild(svgFilter);
+
+        function makeCloud(side){
+            const c = document.createElement("div");
+            c.style.cssText = `
+                position:absolute;top:-5%;bottom:-5%;width:75%;z-index:9999999;
+                pointer-events:none;background:#000;opacity:.98;
+                filter:url(#ndCloudFilter);
+                transition:transform 1.3s cubic-bezier(.7,0,.3,1);
+                ${side==='left' ? 'left:-5%;transform:translateX(-120%);' : 'right:-5%;transform:translateX(120%);'}
+            `;
+            // Andar dhuan - Alag-alag size ke dhabe
+            c.innerHTML = `
+                <div style="position:absolute;left:10%;top:10%;width:80%;height:30%;background:radial-gradient(ellipse, #2a2a35 0%, transparent 70%);filter:blur(15px)"></div>
+                <div style="position:absolute;left:5%;top:40%;width:90%;height:35%;background:radial-gradient(ellipse, #15151f 0%, transparent 70%);filter:blur(20px)"></div>
+                <div style="position:absolute;left:15%;top:65%;width:75%;height:30%;background:radial-gradient(ellipse, #0a0a12 0%, transparent 70%);filter:blur(18px)"></div>
+            `;
+            intro.appendChild(c);
+            return c;
+        }
+
+        const leftCloud = makeCloud('left');
+        const rightCloud = makeCloud('right');
+
+        setTimeout(()=>{
+            leftCloud.style.transform="translateX(0)";
+            rightCloud.style.transform="translateX(0)";
+        },100);
+
+        setTimeout(()=>{
+            intro.remove();
+            mainMenu.style.display="flex";
+            fxStyle.remove();
+            mainMenu.animate([{opacity:0,transform:"scale(1.06)"},{opacity:1,transform:"scale(1)"}],{duration:600,fill:"forwards"});
+        },1600);
+    }
+
+    /* THREE.JS - Wahi V2 Wala */
+    function start3D(){
+        if(!window.THREE) return;
+        const THREE=window.THREE;
+        try{
+            const scene=new THREE.Scene();
+            const camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,100);
+            camera.position.set(0,1,9);
+            renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false,powerPreference:"high-performance"});
+            renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));
+            renderer.setSize(innerWidth,innerHeight);
+            renderer.outputEncoding=THREE.sRGBEncoding;
+            scene.add(new THREE.AmbientLight(0xffffff,1.7));
+            const goldLight=new THREE.DirectionalLight(0xffd49a,2.1); goldLight.position.set(-4,5,7); scene.add(goldLight);
+            const purpleLight=new THREE.PointLight(0x813dff,3,25); purpleLight.position.set(-4,1,4); scene.add(purpleLight);
+            const blueLight=new THREE.PointLight(0x168bff,3,25); blueLight.position.set(4,-2,4); scene.add(blueLight);
+            const loader=new THREE.TextureLoader();
+            loader.load("Cc.png",function(texture){
+                if(finished) return;
+                texture.encoding=THREE.sRGBEncoding;
+                const aspect=texture.image.width/texture.image.height;
+                const height=5.6; const width=height*aspect; const depth=.28;
+                const geometry=new THREE.BoxGeometry(width,height,depth);
+                const side=new THREE.MeshStandardMaterial({color:0x11101c,metalness:.85,roughness:.28,emissive:0x251047,emissiveIntensity:.35});
+                const front=new THREE.MeshStandardMaterial({map:texture,roughness:.48,metalness:.18});
+                const poster=new THREE.Mesh(geometry,[side,side,side,side,front,side]);
+                poster.scale.setScalar(.25); poster.rotation.set(.3,-.8,0); scene.add(poster);
+                const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({color:0x9b75ff,transparent:true,opacity:.95}));
+                poster.add(edge);
+                const count=180; const positions=new Float32Array(count*3);
+                for(let i=0;i<count;i++){ positions[i*3]=(Math.random()-.5)*8; positions[i*3+1]=(Math.random()-.5)*10; positions[i*3+2]=(Math.random()-.5)*4; }
+                const pGeo=new THREE.BufferGeometry(); pGeo.setAttribute("position", new THREE.BufferAttribute(positions,3));
+                const pMat=new THREE.PointsMaterial({color:0x8fcaff,size:.045,transparent:true,opacity:.85,blending:THREE.AdditiveBlending});
+                const particles=new THREE.Points(pGeo,pMat); scene.add(particles);
+                const start=performance.now();
+                function animate(){
+                    if(finished) return;
+                    animationId=requestAnimationFrame(animate);
+                    const t=(performance.now()-start)/1000;
+                    const grow=Math.min(t/1.8,1); const ease=1-Math.pow(1-grow,3);
+                    poster.scale.setScalar(.25+ease*.78);
+                    poster.rotation.y=-.8 + Math.sin(t*.72)*.52;
+                    poster.rotation.x=.3 + Math.sin(t*.9)*.19;
+                    poster.rotation.z=Math.sin(t*.55)*.045;
+                    poster.position.y=Math.sin(t*1.1)*.10;
+                    const angle=t*.52;
+                    camera.position.x=Math.sin(angle)*.9;
+                    camera.position.y=Math.sin(t*.65)*.28;
+                    camera.position.z=8.5-Math.sin(t*.8)*.65;
+                    camera.lookAt(0,0,0);
+                    particles.rotation.y=t*.08;
+                    particles.rotation.x=Math.sin(t*.3)*.08;
+                    purpleLight.intensity=2.5+Math.sin(t*4)*.8;
+                    blueLight.intensity=2.5+Math.sin(t*3.5)*.8;
+                    renderer.render(scene,camera);
+                }
+                posterPreview.style.opacity="0";
+                animate();
+            });
+        }catch(e){ console.error(e); }
+    }
+
+    function loadThree(){
+        if(window.THREE){ start3D(); return; }
+        const s=document.createElement("script");
+        s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+        s.onload=start3D; document.head.appendChild(s);
+    }
+
+    loadThree();
+    const lightningTimer=setInterval(lightningFlash,1700);
+
+    // 5.2 Sec Intro, Phir Dark Baadal Close!
+    setTimeout(()=>{
+        clearInterval(lightningTimer);
+        darkCloudClose();
+    },5200);
+
+})();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BOWMASTERS</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:black;
+}
+
+video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+    transform:rotate(90deg);
+    transform-origin:center;
+    z-index:-1;
+}
+
+.overlay{
+    height:100vh;
+    background:rgba(0,0,0,0.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    text-align:center;
+}
+
+h1{
+    font-size:45px;
+    color:#00ffff;
+    text-shadow:0 0 15px cyan;
+}
+
+p{
+    margin:15px;
+    font-size:20px;
+}
+
+button{
+    padding:15px 45px;
+    border:none;
+    border-radius:30px;
+    font-size:22px;
+    background:#ff9800;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 20px orange;
+}
+
+button:active{
+    transform:scale(0.9);
+}
+
+#msg{
+    margin-top:25px;
+    font-size:22px;
+    color:#ffcc00;
+    display:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<video autoplay loop muted>
+    <source src="Mod.mp4" type="video/mp4">
+</video>
+
+
+<div class="overlay">
+
+<h1>🏹 BOWMASTERS</h1>
+
+<p>Ultimate Archer Game</p>
+
+<button onclick="updateMsg()">
+PLAY NOW
+</button>
+
+<div id="msg">
+🚧 UPDATE TIME<br>
+Game Coming Soon...
+</div>
+
+</div>
+
+
+<script>
+
+function updateMsg(){
+
+document.getElementById("msg").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>

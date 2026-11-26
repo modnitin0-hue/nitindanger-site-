@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    overflow-x:hidden;
+overflow-y:auto;
+    font-family:Arial,sans-serif;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+.content{
+    position:relative;
+    z-index:10;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+h1{
+    color:#00ff66;
+    font-size:42px;
+    text-shadow:0 0 10px #00ff66,
+                0 0 20px #00ff66,
+                0 0 40px #00ff66;
+}
+.topBar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:15px;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(12px);
+z-index:100;
+}
+
+.logo{
+text-align:center;
+font-size:32px;
+font-weight:bold;
+color:#00ff66;
+text-shadow:0 0 15px #00ff66;
+margin-bottom:15px;
+}
+
+.searchBox{
+display:flex;
+align-items:center;
+background:#111;
+border:2px solid #00ff66;
+border-radius:30px;
+padding:12px 18px;
+}
+
+.searchBox i{
+color:#00ff66;
+margin-right:10px;
+}
+
+.searchBox input{
+flex:1;
+background:none;
+border:none;
+outline:none;
+color:#fff;
+font-size:18px;
+}
+
+.searchBox input::placeholder{
+color:#aaa;
+}
+.topVideo{
+width:92%;
+height:140px;
+margin:20px auto;
+margin-top:140px;
+border-radius:20px;
+overflow:hidden;
+border:2px solid #00ff66;
+box-shadow:0 0 20px #00ff66;
+position:relative;
+z-index:5;
+}
+
+.topVideo video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.topVideo.left{
+margin-left:15px;
+margin-right:auto;
+}
+
+.topVideo.right{
+margin-left:auto;
+margin-right:15px;
+}
+
+.topVideo video{
+width:100%;
+height:100%;
+object-fit:cover;
+  }
+  .games{
+    position:relative;
+    z-index:10;
+    width:100%;
+    padding:100px 15px 30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:rgba(20,20,20,.85);
+    border:1px solid #00ff66;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 0 15px rgba(0,255,100,.25);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px) scale(1.03);
+    box-shadow:0 0 30px #00ff66;
+  }
+  .card{
+opacity:0;
+transform:translateY(60px) scale(.9);
+animation:cardShow .8s ease forwards;
+}
+
+.card:nth-child(1){animation-delay:.15s;}
+.card:nth-child(2){animation-delay:.30s;}
+.card:nth-child(3){animation-delay:.45s;}
+.card:nth-child(4){animation-delay:.60s;}
+.card:nth-child(5){animation-delay:.75s;}
+.card:nth-child(6){animation-delay:.90s;}
+.card:nth-child(7){animation-delay:1.05s;}
+.card:nth-child(8){animation-delay:1.20s;}
+.card:nth-child(9){animation-delay:1.35s;}
+.card:nth-child(10){animation-delay:1.50s;}
+
+@keyframes cardShow{
+
+0%{
+opacity:0;
+transform:translateY(60px) scale(.9);
+filter:blur(8px);
+}
+
+70%{
+opacity:1;
+transform:translateY(-8px) scale(1.03);
+}
+
+100%{
+opacity:1;
+transform:translateY(0) scale(1);
+filter:blur(0);
+}
+
+  }
+
+
+.card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    border-radius:18px 18px 0 0;
+  }
+
+
+.card h3{
+    color:#fff;
+    text-align:center;
+    padding:12px 8px 6px;
+    font-size:18px;
+}
+
+.downloadBtn{
+    display:block;
+    margin:12px;
+    padding:12px;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    background:#00aa55;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.downloadBtn:hover{
+    background:#00ff66;
+    color:#000;
+  }
+  .infoLine{
+    text-align:center;
+    font-size:14px;
+    margin:8px 0 12px;
+    color:#ffd700;   /* Rating ka color */
+}
+
+.version{
+    color:#00e5ff;   /* New Version ka color */
+    font-weight:bold;
+    margin-left:8px;
+  }
+  .card{
+    position:relative;
+}
+
+.badgeTop{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:linear-gradient(45deg,#ff0000,#ff6600);
+    color:#fff;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    box-shadow:0 0 12px #ff3300;
+    z-index:20;
+}
+
+.badgeNew{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:linear-gradient(45deg,#00ff66,#00ccff);
+    color:#000;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    box-shadow:0 0 12px #00ff66;
+    z-index:20;
+  }
+  .badgeUpcoming{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background:linear-gradient(45deg,#7b2cff,#ff00cc);
+    color:#fff;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:0.5px;
+    box-shadow:0 0 12px #b84dff;
+    z-index:20;
+    animation:upcomingGlow 1.5s infinite alternate;
+}
+
+@keyframes upcomingGlow{
+    0%{
+        box-shadow:0 0 8px #b84dff;
+        transform:scale(1);
+    }
+    100%{
+        box-shadow:0 0 20px #ff66ff;
+        transform:scale(1.05);
+    }
+  }
+</style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+<header class="topBar">
+
+<div class="logo">
+🎮 MOD 999
+</div>
+
+<div class="searchBox">
+
+<i class="fas fa-search"></i>
+
+<input
+type="text"
+id="search"
+placeholder="Search Games...">
+
+</div>
+
+</header>
+
+<div id="hubProfile" style="
+    position:fixed;
+    top:10px;
+    right:12px;
+    z-index:99999;
+    display:none;
+">
+    <button id="hubProfileBtn" style="
+        display:flex;
+        align-items:center;
+        gap:7px;
+        background:#101820;
+        color:white;
+        border:1px solid #00ff66;
+        border-radius:30px;
+        padding:6px 10px;
+    ">
+        <img id="hubPhoto" style="
+            width:32px;
+            height:32px;
+            border-radius:50%;
+            object-fit:cover;
+        ">
+        <span id="hubName">Gamer</span> ▾
+    </button>
+
+    <div id="hubMenu" style="
+        display:none;
+        position:absolute;
+        right:0;
+        top:48px;
+        background:#111;
+        border:1px solid #00ff66;
+        border-radius:12px;
+        padding:12px;
+        width:190px;
+        color:white;
+    ">
+        <div id="hubEmail"></div>
+        <button id="hubLogout" style="
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            background:#00ff66;
+            border:0;
+            border-radius:8px;
+        ">LOGOUT</button>
+    </div>
+</div>
+
+  <div class="topVideo">
+<video autoplay muted loop playsinline>
+<source src="Mod.mp4" type="video/mp4">
+</video>
+  </div>
+  
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize = 16;
+const columns = Math.floor(canvas.width / fontSize);
+
+const drops = [];
+for(let i=0;i<columns;i++){
+    drops[i]=1;
+}
+
+function draw(){
+
+    ctx.fillStyle="rgba(0,0,0,0.06)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+
+        const text=letters.charAt(Math.floor(Math.random()*letters.length));
+
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
+            drops[i]=0;
+        }
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw,35);
+
+window.onresize=function(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+};
+</script>
+<div class="games">
+
+<div class="card"data-name="subway surfers">
+  <div class="badgeTop">TOP GAME</div>
+<img src="Subwaysurfers.jpg">
+<h3>Subway Surfers </h3>
+<div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">New Version</span>
+</div>
+  <a class="downloadBtn" href="download.html?game=ss">DOWNLOAD</a>
+</div>
+
+<div class="card" data-name="Beach buggy racing">
+  <div class="badgeNew">NEW</div>
+<img src="bb.jpg">
+<h3>Beach buggy racing </h3>
+<div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+</div>
+  <a class="downloadBtn" href="download.html?game=Bbr">DOWNLOAD</a></div>
+
+<div class="card"data-name="Bowmasters">
+  <div class="badgeNew">NEW</div>
+<img src="Bowmasters.jpg">
+<h3>Bowmasters</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=bow">DOWNLOAD</a>
+</div>
+
+  <div class="card"data-name="Robbery bob">
+<img src="Robberybob.jpg">
+<h3>Robbery bob</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=bob">DOWNLOAD</a>
+  </div>
+
+<div class="card"data-name="Horrorfild">
+<img src="Horrorfild.jpg">
+<h3>Horrorfild</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Horror">DOWNLOAD</a>
+</div>
+
+<div class="card">data-name="Hill Climb Racing">
+<img src="hillclimbracing.jpg">
+<h3>Hill Climb Racing</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=hcr">DOWNLOAD</a>
+</div>
+
+  <div class="card" data-name="Kick The Buddy">
+<img src="Kickthebuddy.jpg">
+<h3>Kick The Buddy</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=ktb">DOWNLOAD</a>
+  </div>
+
+  <div class="card" data-name="Mini Militia">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Minimiltita.jpg">
+<h3>Mini Militia</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=mm">DOWNLOAD</a>
+  </div>
+
+<div class="card"> 
+  <div class="badgeTop">TOP GAME</div>
+<img src="plantvszombie2.jpg">
+<h3>Plant Vs Zombie 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=pvz2">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="ludoking.jpg">
+<h3>Ludo King</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=LK">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Tom2.jpg">
+<h3>My Talking Tom 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=T2">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+<img src="Tower.jpg">
+<h3>Tower conqust</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=TC">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="shadowfigth2.jpg">
+<h3>Shadow Figth 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=sf2">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Psycho.jpg">
+<h3>The Haunted dorm</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=p">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Wormzone.jpg">
+<h3>Worm Zone IQ</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=WZ">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+<img src="Tankstar.jpg">
+<h3>Tank Star</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Ts">DOWNLOAD</a>
+</div>
+  
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Hcr2.jpg">
+<h3>Hill Climb racing 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Hcr2">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+<img src="Ninja.jpg">
+<h3>Ninja Arashi 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Na2">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+    <div class="badgeTop">TOP GAME</div>
+<img src="Dragoncity.png">
+<h3>Dragoncity</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="alpha.jpg">
+<h3>Alpha Gun</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Granny.png">
+<h3>Granny Chapter 1</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Granny">DOWNLOAD</a>
+</div>
+
+    <div class="card">
+      <div class="badgeUpcoming">UPCOMING</div>
+<img src="Face.jpg">
+<h3>Grow castle</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Dr.jpg">
+<h3>Dr Draving</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=DD">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="Coc.jpg">
+<h3>Clash of clan</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+  </div>
+  
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Dynamonsworld.jpg">
+<h3>Dynamonsworld</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Dw">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="cor.jpg">
+<h3>Clash of Royal</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="kuri.jpg">
+<h3> Lr Legend </h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=Lrl">DOWNLOAD</a>
+  </div>
+  <div class="card">
+    <div class="badgeTop">TOP GAME</div>
+<img src="Templerun.jpg">
+<h3>Temple Run 2</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=TR2">DOWNLOAD</a>
+  </div>
+  
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Red4.jpg">
+<h3>Redboll4</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=rb4">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Sniper3d.jpg">
+<h3>Sniper3d</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=s3d">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="super.jpg">
+<h3> Super Advaners Bere </h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=SAB">DOWNLOAD</a>
+  </div>
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Ropehero.jpg">
+<h3>Rope Hero</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=RH">DOWNLOAD</a>
+  </div>
+  
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="Castlecrush.jpg">
+<h3>Castlecrush</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="8boll.jpg">
+<h3>8 pool Boll</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeUpcoming">UPCOMING</div>
+<img src="Loadsmobile.jpg">
+<h3> Loads Mobile </h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="#">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+<img src="Supercity.jpg">
+<h3>Super City</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href=""download.html?game=sc">DOWNLOAD</a>
+</div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="wwe.jpg">
+<h3>WWE</h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href=""download.html?game=wwe">DOWNLOAD</a>
+  </div>
+
+  <div class="card">
+    <div class="badgeNew">NEW</div>
+<img src="Robbreybob2.jpg">
+<h3> Robberybob2 </h3>
+  <div class="gameInfo">
+⭐ ⭐ ⭐ ⭐ ☆
+<br>
+<span class="version">🆕 New Version</span>
+  </div>
+  <a class="downloadBtn" href="download.html?game=rb2">DOWNLOAD</a>
+  </div>
+</div>
+
+<script>
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", function () {
+
+    const value = this.value
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+
+    const cards = document.querySelectorAll(".games .card");
+
+    let visibleCount = 0;
+
+    cards.forEach(function(card) {
+
+        const heading = card.querySelector("h3");
+
+        const name = (
+            card.dataset.name ||
+            (heading ? heading.textContent : "")
+        ).toLowerCase().trim();
+
+        const words = name.split(/\s+/);
+
+        const match =
+            value === "" ||
+            name.startsWith(value) ||
+            words.some(word => word.startsWith(value));
+
+        if (match) {
+            card.style.display = "";
+            visibleCount++;
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+    let noResults = document.getElementById("noResults");
+
+    if (!noResults) {
+        noResults = document.createElement("div");
+        noResults.id = "noResults";
+        noResults.textContent = "🎮 No Games Found!";
+        noResults.style.cssText =
+            "display:none;text-align:center;color:#00ff66;" +
+            "font-size:22px;font-weight:bold;padding:30px;" +
+            "width:100%;grid-column:1/-1;";
+        document.querySelector(".games").appendChild(noResults);
+    }
+
+    noResults.style.display =
+        visibleCount === 0 ? "block" : "none";
+
+});
+</script>
+
+<script>
+
+const videos=[
+"Mod.mp4",
+];
+
+const player=document.getElementById("randomVideo");
+
+player.src=videos[Math.floor(Math.random()*videos.length)];
+
+const box=document.querySelector(".topVideo");
+
+if(Math.random()<0.5){
+box.classList.add("left");
+}else{
+box.classList.add("right");
+}
+
+</script>
+
+<script>
+// =====================================
+// GAME HUB ACCOUNT CONNECTION
+// =====================================
+
+const hubConfig = {
+    apiKey: "AIzaSyC4lbKBhinZEYuyg13jUG5lFSoc63GDTD8",
+    authDomain: "nitindanger-8cf9f.firebaseapp.com",
+    databaseURL: "https://nitindanger-8cf9f-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "nitindanger-8cf9f",
+    storageBucket: "nitindanger-8cf9f.firebasestorage.app",
+    messagingSenderId: "504190610906",
+    appId: "1:504190610906:web:f5e92b141155f48aa764e3"
+};
+
+if(!firebase.apps.length){
+    firebase.initializeApp(hubConfig);
+}
+
+const hubAuth = firebase.auth();
+
+const hubProfile = document.getElementById("hubProfile");
+const hubMenu = document.getElementById("hubMenu");
+
+document.getElementById("hubProfileBtn")
+.addEventListener("click",function(){
+
+    hubMenu.style.display =
+        hubMenu.style.display === "block" ? "none" : "block";
+
+});
+
+hubAuth.onAuthStateChanged(function(user){
+
+    if(user){
+
+        hubProfile.style.display = "block";
+
+        document.getElementById("hubName").textContent =
+            user.displayName || "Gamer";
+
+        document.getElementById("hubEmail").textContent =
+            user.email || "";
+
+        document.getElementById("hubPhoto").src =
+            user.photoURL ||
+            "https://www.gravatar.com/avatar/?d=mp";
+
+    }else{
+
+        hubProfile.style.display = "none";
+
+    }
+
+});
+
+document.getElementById("hubLogout")
+.addEventListener("click",async function(){
+
+    await hubAuth.signOut();
+
+});
+
+</script>
+
+</body>
+</html>
